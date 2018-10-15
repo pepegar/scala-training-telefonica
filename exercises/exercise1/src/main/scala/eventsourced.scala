@@ -1,5 +1,7 @@
 package exercise1
 
+import java.util.UUID
+
 /**
   * Let's imagine a simple event sourced application.  We want to define
   * some events that we can handle:
@@ -10,6 +12,14 @@ package exercise1
   * - Payment goes through correctly
   * - Payment process fails with timeout
   * - Payment process fails because of Insufficent funds
+  *
+  * Exercise1.2
+  *
+  * We know that all events for this system will have several fields:
+  * - Event ID
+  * - User ID
+  *
+  * Refactor your previous exercise to add those.
   */
 sealed trait Event
 case class UserLogIn(userId: UUID) extends Event
