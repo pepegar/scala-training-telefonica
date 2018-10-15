@@ -1,0 +1,3 @@
+[submodule "docs/tut-out/reveal.js"]
+	path = docs/tut-out/reveal.js
+	url = git@github.com:hakimel/reveal.js.git
