@@ -12,3 +12,11 @@ package exercise1
   * - Payment process fails because of Insufficent funds
   */
 sealed trait Event
+case class UserLogIn(userId: UUID) extends Event
+case class AddItemToBasket(userId: UUID, itemId: UUID) extends Event
+case class UserIntentPay(userId: UUID) extends Event
+case class PaymentCorrect(userId: UUID, paymentReceipt: String) extends Event
+
+sealed trait PaymentFailure extends Event
+case class TimeoutFailure(userId: UUID, intentId: UUID) extends PaymentFailure
+case class InsufficentFundsFailure(userId: UUID, inteintId: UUID) extends PaymentFailure
