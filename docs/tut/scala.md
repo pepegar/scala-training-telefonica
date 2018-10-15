@@ -139,7 +139,7 @@ for arbitrary types. Let's see an example:
 
 ##
 
-```tut
+```tut:silent
 def compose(f: String => Int, g: Int => Boolean): String => Boolean = { str =>
   g(f(str))
 }
@@ -168,7 +168,7 @@ types of the functions `f` & `g`? or we just need them to match?
 
 We could use a **generic** implementation for `compose`!
 
-```tut
+```tut:silent
 def composeGeneric[A, B, C](f: A => B, g: B => C): A => C = { a =>
   g(f(a))
 }
@@ -287,7 +287,7 @@ some events that we can handle:
 
 ##
 
-```tut
+```tut:silent
 import java.util.UUID
 
 sealed trait Event
@@ -314,7 +314,7 @@ Refactor your previous exercise to add those.
 
 # solution
 
-```tut
+```tut:silent
 sealed trait Event {
   def id: UUID
   def userId: UUID
