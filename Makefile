@@ -7,7 +7,7 @@ basics1:
 	@$(PANDOC) -t html5 \
           --template=default.revealjs --standalone --section-divs \
           --variable theme="beige" --variable transition="linear" \
-          docs/tut-out/basics1.md -o docs/tut-out/basics1.html
+          docs/tut-out/scala.md -o docs/tut-out/scala.html
 	@echo "- converting basics1.md to basics1.html"
 
 
