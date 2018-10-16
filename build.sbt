@@ -3,6 +3,18 @@ ThisBuild / scalaVersion := "2.12.4"
 lazy val exercise1 = project
   .in(file("exercises/exercise1"))
 
+lazy val exercise2 = project
+  .in(file("exercises/exercise2"))
+  .settings(libraryDependencies ++= Seq(
+    guice,
+    "com.typesafe.play" %% "play-slick" % "3.0.1",
+    "com.typesafe.play" %% "play-slick-evolutions" % "3.0.1",
+    "com.h2database" % "h2" % "1.4.192",
+
+    "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test
+  ))
+  .enablePlugins(PlayScala)
+
 lazy val docs = project
   .in(file("docs"))
   .settings(
