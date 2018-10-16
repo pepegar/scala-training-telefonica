@@ -1,8 +1,83 @@
 # Play framework
 
-# Basic concepts
+##
 
-# Create endpoints
+- Web app framework
+- MVC
+- Reactive (thanks to Akka & Akka streams)
+
+## In this session
+
+- Controllers
+- Routes
+- Json
+- Persistence
+- HTTP client
+
+# Controller
+
+##
+
+As an MVC framework Play uses controllers to handle requests.
+
+##
+
+In play, your controllers need to extend `AbstractController`
+
+##
+
+```scala
+@Singleton
+class Controller @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
+
+}
+```
+
+## Actions
+
+Actions are how you handle requests in the controller. `Action` is
+basically a function `Request[A] => Response`.
+
+## Actions
+
+```scala
+def index() = Action {
+  Ok("hello")
+}
+```
+
+## Example
+
+Tying controllers and Actions together
+
+# Routes
+
+##
+
+In Play, you describe your webapp endpoints as routes:
+
+##
+
+```
+# https://www.playframework.com/documentation/latest/ScalaRouting
+# ~~~~
+
+# An example controller showing a sample home page
+GET     /                           package.Controller.index
+
+PUT     /:id                        package.Controller.putStuff(id)
+
+DELETE  /:id                        package.Controller.deleteItem(id)
+```
+
+##
+
+All accepted verbs for routes are `GET`,`POST`,`PUT`,`DELETE`
+
+## Exercise 2
+
+Create a new route that receives a `name` in the URL and prints `"hello $name"`
+
 
 # JSON
 
@@ -70,6 +145,12 @@ case class Car(brand: String, model: String)
 implicit val writesCar: Writes[Car] = Json.writes[Car]
 implicit val readsCar: Reads[Car] = Json.reads[Car]
 ```
+
+# Json and HTTP
+
+#
+
+Json can be read directly in the HTTP
 
 # Persistence
 

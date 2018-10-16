@@ -4,4 +4,3 @@
 # ~~~~
 
 GET     /                           exercise2.Controller.index
-GET     /hello/:name                exercise2.Controller.hello(name)

@@ -11,8 +11,4 @@ class Controller @Inject()(cc: ControllerComponents) extends AbstractController(
     Ok("hello")
   }
 
-  def hello(name: String) = Action {
-    Ok("hello " + name)
-  }
-
 }
