@@ -146,6 +146,11 @@ implicit val writesCar: Writes[Car] = Json.writes[Car]
 implicit val readsCar: Reads[Car] = Json.reads[Car]
 ```
 
+## Exercise 2.2
+
+create `Reads` and `Writes` instances for the `Car` case class in the
+`exercise2/model.scala` file.
+
 # Json and HTTP
 
 #
