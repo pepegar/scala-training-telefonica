@@ -74,7 +74,7 @@ DELETE  /:id                        package.Controller.deleteItem(id)
 
 All accepted verbs for routes are `GET`,`POST`,`PUT`,`DELETE`
 
-## Exercise 2
+## Exercise 2.1
 
 Create a new route that receives a `name` in the URL and prints `"hello $name"`
 
