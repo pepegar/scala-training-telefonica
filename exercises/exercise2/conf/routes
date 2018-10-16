@@ -4,3 +4,4 @@
 # ~~~~
 
 GET     /                           exercise2.Controller.index
+GET     /:name                      exercise2.Controller.hello(name)
