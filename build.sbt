@@ -21,6 +21,11 @@ lazy val exercise2 = project
   .settings(libraryDependencies ++= playDeps)
   .enablePlugins(PlayScala)
 
+lazy val exercise3 = project
+  .in(file("exercises/exercise3"))
+  .settings(libraryDependencies ++= playDeps)
+  .enablePlugins(PlayScala)
+
 
 /******************************************************************
  *                          EXAMPLES                              *
