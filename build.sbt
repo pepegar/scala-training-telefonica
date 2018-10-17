@@ -39,6 +39,14 @@ lazy val parsingJsonHttpExample = project
   .settings(libraryDependencies ++= playDeps)
   .enablePlugins(PlayScala)
 
+lazy val wsClientExample = project
+  .in(file("examples/wsClient"))
+  .settings(libraryDependencies ++= playDeps)
+  .settings(libraryDependencies ++= Seq(
+    ws
+  ))
+  .enablePlugins(PlayScala)
+
 lazy val dbAccessExample = project
   .in(file("examples/dbAccess"))
   .settings(libraryDependencies ++= playDeps)
