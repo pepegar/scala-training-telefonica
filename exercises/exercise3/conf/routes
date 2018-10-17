@@ -3,4 +3,8 @@
 # https://www.playframework.com/documentation/latest/ScalaRouting
 # ~~~~
 
-GET     /                           exercise2.Controller.index
+GET     /                           exercise3.Controller.listAll
+GET     /:id                        exercise3.Controller.read(id: Int)
+PUT     /                           exercise3.Controller.create
+POST    /:id                        exercise3.Controller.update(id: Int)
+DELETE  /:id                        exercise3.Controller.delete(id: Int)
