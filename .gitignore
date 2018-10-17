@@ -24,3 +24,5 @@ project/plugins/project/
 
 docs/tut-out/*.md
 docs/tut-out/*.html
+
+.idea
