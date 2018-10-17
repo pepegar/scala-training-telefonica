@@ -229,7 +229,21 @@ db {
 
 Using the Database connection
 
-# Using the HTTP client
+# HTTP client
+
+##
+
+Play comes with a powerful HTTP client based on AsyncHttpClient.
+
+## Creating requests
+
+You create requests by adding the URL they request to:
+
+```scala
+val req: WSRequest = WSClient.url("google.com")
+```
+
+
 
 ## Http client
 
