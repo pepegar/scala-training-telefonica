@@ -211,9 +211,23 @@ checkout the `exercise3-description` tag.
 
 # Persistence
 
-## Persistence
+##
 
-Connect to a SQLite database.
+DB configuration in play is controlled in the `application.conf` file.
+An example configuration could be:
+
+```
+db {
+  default {
+    driver=org.h2.Driver
+    url="jdbc:h2:mem:play"
+  }
+}
+```
+
+## example
+
+Using the Database connection
 
 # Using the HTTP client
 
