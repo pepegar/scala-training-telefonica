@@ -6,10 +6,9 @@ ThisBuild / scalaVersion := "2.12.4"
 
 val playDeps = Seq(
   guice,
-  "com.typesafe.play" %% "play-slick" % "3.0.1",
-  "com.typesafe.play" %% "play-slick-evolutions" % "3.0.1",
+  "com.typesafe.play" %% "play-server" % "2.6.13",
+  "com.typesafe.play" %% "play-json" % "2.6.6",
   "com.h2database" % "h2" % "1.4.192",
-
   "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test
 )
 
@@ -38,6 +37,16 @@ lazy val simpleExample = project
 lazy val parsingJsonHttpExample = project
   .in(file("examples/parsingJsonHttp"))
   .settings(libraryDependencies ++= playDeps)
+  .enablePlugins(PlayScala)
+
+lazy val dbAccessExample = project
+  .in(file("examples/dbAccess"))
+  .settings(libraryDependencies ++= playDeps)
+  .settings(libraryDependencies ++= Seq(
+    jdbc,
+    evolutions,
+    "com.h2database" % "h2" % "1.4.192",
+  ))
   .enablePlugins(PlayScala)
 
 
