@@ -153,9 +153,61 @@ create `Reads` and `Writes` instances for the `Car` case class in the
 
 # Json and HTTP
 
-#
+##
 
-Json can be read directly in the HTTP
+One can use `Reads` ands `Writes` typeclasses on scala classes to read
+the body of HTTP request or to send the body of HTTP responses,
+respectively.
+
+##
+
+To access the body of a request you use the following:
+
+```scala
+def other() =  Action { implicit req =>
+  Json.fromJson[Car](req.body.asJson.get).asEither match {
+    case Left(err) => BadRequest(JsError.toJson(err))
+    case Right(car) =>
+      // Do stuff with the car
+      Ok(Json.toJson(car))
+  }
+}
+```
+
+##
+
+But, since we've seen that `Action`s are functions, we can compose
+them together.  This means executing one, and then another.  In our
+case we'll create an action that tries to parse the body of the
+request and returns it, and then another action that uses that body.
+
+##
+
+Parsing the body
+
+```scala
+def validateAs[A : Reads] = parse.json.validate(
+  _.validate[A].asEither.left.map(e => BadRequest(JsError.toJson(e)))
+)
+```
+
+##
+
+Using the body
+
+```scala
+def index() = Action(validateAs[Car]) { implicit req =>
+  val car : Car = req.body
+  Ok(Json.toJson(car))
+}
+```
+
+# Exercise 3
+
+Create a CRUD application that stores users. A user is composed by an
+ID and a String.
+
+checkout the `exercise3-description` tag.
 
 # Persistence
 
@@ -176,3 +228,4 @@ val ws: WSClient =
 ```
 
 
+# Testing the application
