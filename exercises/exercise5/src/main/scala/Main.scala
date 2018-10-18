@@ -9,9 +9,12 @@ object Main extends App {
     * - make them start pingponging.
     */
 
+  import PingPongActor._
+
   val system = ActorSystem("exercise5")
 
-  // instantiate and send message to the actor here.
+  val ping = system.actorOf(PingPongActor.props, "ping")
+  val pong = system.actorOf(PingPongActor.props, "pong")
 
-  system.terminate()
+  ping ! Start(pong, Ping)
 }
