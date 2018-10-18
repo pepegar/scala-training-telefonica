@@ -12,6 +12,9 @@ object Main extends App {
   val system = ActorSystem("exercise4")
 
   // instantiate and send message to the actor here.
+  val ref = system.actorOf(PongActor.props)
+
+  ref ! PongActor.Ping
 
   system.terminate()
 }
