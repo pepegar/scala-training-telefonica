@@ -1,9 +1,5 @@
 ThisBuild / scalaVersion := "2.12.4"
 
-/******************************************************************
- *                          EXERCISES                             *
- ******************************************************************/
-
 val playDeps = Seq(
   guice,
   "com.typesafe.play" %% "play-server" % "2.6.13",
@@ -12,6 +8,14 @@ val playDeps = Seq(
   "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test
 )
 
+val akkaDeps = Seq(
+  "com.typesafe.akka" %% "akka-actor" % "2.5.17",
+  "com.typesafe.akka" %% "akka-testkit" % "2.5.17" % Test
+)
+
+/******************************************************************
+ *                          EXERCISES                             *
+ ******************************************************************/
 lazy val exercise1 = project
   .in(file("exercises/exercise1"))
 
@@ -24,6 +28,10 @@ lazy val exercise3 = project
   .in(file("exercises/exercise3"))
   .settings(libraryDependencies ++= playDeps)
   .enablePlugins(PlayScala)
+
+lazy val exercise4 = project
+  .in(file("exercises/exercise4"))
+  .settings(libraryDependencies ++= akkaDeps)
 
 
 /******************************************************************
