@@ -68,6 +68,9 @@ lazy val dbAccessExample = project
   ))
   .enablePlugins(PlayScala)
 
+lazy val akkaRouting = project
+  .in(file("examples/akkaRouting"))
+  .settings(libraryDependencies ++= akkaDeps)
 
 /******************************************************************
  *                            DOCS                                *
