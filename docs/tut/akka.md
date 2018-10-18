@@ -98,10 +98,12 @@ object Calculator {
 
 ## The actor system
 
-> An actor system is a hierarchical group of actors which share common
-> configuration, e.g. dispatchers, deployments, remote capabilities
-> and addresses. It is also the entry point for creating or looking up
-> actors.
+> One actor is no actor, they come in systems
+
+An actor system is a hierarchical group of actors which share common
+configuration, e.g. dispatchers, deployments, remote capabilities
+and addresses. It is also the entry point for creating or looking up
+actors.
 
 
 ##
@@ -135,9 +137,46 @@ object Calculator {
 }
 ```
 
-# exercise 3.1
+# exercise 4
 
-Create a pong actor (an actor that, when receives "ping", answers "pong")
+Create a pong actor (an actor that, when receives Ping, answers Pong)
+
+#
+
+## communicating actors
+
+As we saw in the beginning, one of the properties of actors is that
+they can communicate (send & answer) messages to another actors, but
+how do we make those actors know each other?
+
+##
+
+There are basically two ways of doing so.  The first one would be to
+make the actor take the reference of the other one in its constructor.
+
+```scala
+class Actor1(otherActor: ActorRef) extends Actor {
+}
+```
+
+This works for _static_ references.
+
+##
+
+The other option is to pass the reference as a message:
+
+```scala
+val ref1 = system.actorOf(Actor1.props)
+val ref2 = system.actorOf(Actor2.props)
+
+ref1 ! ref2 // here we're sending the ActorRef of Actor2 to Actor1
+```
+
+# exercise 5
+
+- Modify pong actor so it can handle both ping and pong messages.
+- Create two instances of it.
+- make them start pingponging.
 
 # Actor hierarchy
 

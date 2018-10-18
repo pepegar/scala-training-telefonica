@@ -33,6 +33,9 @@ lazy val exercise4 = project
   .in(file("exercises/exercise4"))
   .settings(libraryDependencies ++= akkaDeps)
 
+lazy val exercise5 = project
+  .in(file("exercises/exercise5"))
+  .settings(libraryDependencies ++= akkaDeps)
 
 /******************************************************************
  *                          EXAMPLES                              *
