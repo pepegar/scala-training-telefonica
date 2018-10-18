@@ -32,7 +32,12 @@ Akka's streaming layer.
 ##
 
 The actor model is a model for concurrency that treats actors as the
-basic primitive
+basic primitive of computation.  Actors is the smallest unit that
+embodies:
+
+<p class="fragment fade-in">processing</p>
+<p class="fragment fade-in">storage</p>
+<p class="fragment fade-in">communication</p>
 
 ##
 
@@ -42,6 +47,23 @@ Actors can do the following:
 <p class="fragment fade-in">send messages to other actors</p>
 <p class="fragment fade-in">create other actors</p>
 <p class="fragment fade-in">keep internal state</p>
+
+##
+
+The way communication between actors happen, under the hood, is that
+actor A sends a message to actor B, and B receives it in its mailbox.
+Mailbox are FIFO queues from which the actor pulls messages when he's
+not doing anything else.
+
+##
+
+**Actors**:
+
+- Have addresses. (think of them like their URI within the actorsystem)
+- Have mailboxes, in which they receive messages
+- Can hold an internal state
+- Receive messages
+- Can create other actors
 
 ## How to create actors
 
@@ -141,7 +163,25 @@ object Calculator {
 
 Create a pong actor (an actor that, when receives Ping, answers Pong)
 
-#
+# Actor addresses
+
+##
+
+Addresses are used to represent the actor in the current
+`ActorSystem`.  They're strings, and have the following shape:
+
+```
+akka://exercise5/user/ping
+akka://exercise5/user/pong
+akka://exercise5/user/invoicing/accounts/12341532/calculator
+```
+
+##
+
+By default, when we instantiated actors with `actorOf`, they
+get a random address chosen by the actor system, but we can customize
+the address by passing a second parameter to `actorOf`.
+
 
 ## communicating actors
 
@@ -151,7 +191,7 @@ how do we make those actors know each other?
 
 ##
 
-There are basically two ways of doing so.  The first one would be to
+There are basically three ways of doing so.  The first one would be to
 make the actor take the reference of the other one in its constructor.
 
 ```scala
@@ -163,13 +203,23 @@ This works for _static_ references.
 
 ##
 
-The other option is to pass the reference as a message:
+The second option is to pass the reference as a message:
 
 ```scala
-val ref1 = system.actorOf(Actor1.props)
-val ref2 = system.actorOf(Actor2.props)
+val ref1 = system.actorOf(Actor1.props, "actor1")
+val ref2 = system.actorOf(Actor2.props, "actor2")
 
 ref1 ! ref2 // here we're sending the ActorRef of Actor2 to Actor1
+```
+
+##
+
+The last one is to query the `ActorSystem` for an address by using the
+`context.actorSelection` method inside the other actor.  They way one
+could do it is:
+
+```scala
+system.actorSelection("../actor1") ! msg
 ```
 
 # exercise 5
@@ -180,8 +230,47 @@ ref1 ! ref2 // here we're sending the ActorRef of Actor2 to Actor1
 
 # Actor hierarchy
 
-https://doc.akka.io/docs/akka/2.5/general/addressing.html
-https://doc.akka.io/docs/akka/2.5/general/remoting.html
+##
+
+<img src="img/guardians.png" style="height: 400px"/>
+
+##
+
+As we've seen before, actors come in systems and these systems have a
+hierarchy.  The actors we create will be all under the `/user` actor,
+and everytime one actor instantiates an actor, the latter will be
+under the former.  This makes the hierarchy be tree shaped.
+
+##
+
+We need to keep in mind hierarchy of actors when doing several things:
+
+- **Using actor references**.  Actor references are prefixed with
+  their parent's reference.
+- **Supervision**.  Supervision is handled hierarchically
+
+# Supervision
+
+##
+
+Supervision is a vital part of the actor model.  In the actor model,
+when a supervisor actor creates a child actor, it should be able to
+handle all the outcomes of crashes & errors in the child actor.  This
+process is called supervision.
+
+##
+
+When failures happen to a child actor, the supervisor has four
+options:
+
+- **Resume** the subordinate, keeping its accumulated internal state
+- **Restart** the subordinate, clearing out its accumulated internal state
+- **Stop** the subordinate permanently
+- **Escalate** the failure, thereby failing itself
+
+##
+
+https://doc.akka.io/docs/akka/current/general/supervision.html#supervision-and-monitoring
 
 # Actor lifecycle
 
@@ -189,16 +278,25 @@ https://doc.akka.io/docs/akka/current/typed/actor-lifecycle.html remember this i
 
 # Exercise 3.2
 
-Actor hierarchy
+Come up with an exercise that expands on supervision and lifecycle
 
 # Actor routing
 
+#
+
+##
+
+Routing is a useful technique in akka.  What you do is send messages
+to a _frontend_ actor (the _router_) that will then send those
+messages to be received by its _routees_.
+
+## Example
+
 https://doc.akka.io/docs/akka/2.5/routing.html
 
-# Supervision
-
-https://doc.akka.io/docs/akka/current/general/supervision.html#supervision-and-monitoring
 
 # Testing
+
+
 
 [alpakka]: https://developer.lightbend.com/docs/alpakka/current/
