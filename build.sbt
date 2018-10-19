@@ -15,7 +15,9 @@ val akkaDeps = Seq(
 
 val akkaHttpDeps = Seq(
   "com.typesafe.akka" %% "akka-http"   % "10.1.5",
-  "com.typesafe.akka" %% "akka-stream" % "2.5.17"
+  "com.typesafe.akka" %% "akka-stream" % "2.5.17",
+  "com.typesafe.akka" %% "akka-http-spray-json" % "10.1.5",
+  "com.typesafe.akka" %% "akka-http-testkit" % "10.1.5" % Test
 )
 /******************************************************************
  *                          EXERCISES                             *
@@ -78,6 +80,10 @@ lazy val akkaRouting = project
 
 lazy val akkaHttpRouting = project
   .in(file("examples/akkaHttpRouting"))
+  .settings(libraryDependencies ++= akkaHttpDeps)
+
+lazy val akkaHttpJson = project
+  .in(file("examples/akkaHttpJson"))
   .settings(libraryDependencies ++= akkaHttpDeps)
 
 /******************************************************************
