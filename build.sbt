@@ -13,6 +13,10 @@ val akkaDeps = Seq(
   "com.typesafe.akka" %% "akka-testkit" % "2.5.17" % Test
 )
 
+val akkaHttpDeps = Seq(
+  "com.typesafe.akka" %% "akka-http"   % "10.1.5",
+  "com.typesafe.akka" %% "akka-stream" % "2.5.17"
+)
 /******************************************************************
  *                          EXERCISES                             *
  ******************************************************************/
@@ -71,6 +75,10 @@ lazy val dbAccessExample = project
 lazy val akkaRouting = project
   .in(file("examples/akkaRouting"))
   .settings(libraryDependencies ++= akkaDeps)
+
+lazy val akkaHttpRouting = project
+  .in(file("examples/akkaHttpRouting"))
+  .settings(libraryDependencies ++= akkaHttpDeps)
 
 /******************************************************************
  *                            DOCS                                *
