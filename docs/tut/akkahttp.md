@@ -14,6 +14,8 @@ minimal example:
 
 ## akka routing example
 
+`path`, `get`, `post`, `entity(as[T])` directives.
+
 # Directives
 
 Directives the building blocks for routing.  We've already seen some
