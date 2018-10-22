@@ -1,10 +1,17 @@
 # Akka
 
+
+#
+
 ## Plan for today
 
-- What's Akka
-- Akka ecosystem
-- Actor model
+<p class="fragment fade-in">What's Akka</p>
+<p class="fragment fade-in">Akka ecosystem</p>
+<p class="fragment fade-in">Actor model</p>
+<p class="fragment fade-in">Hierarchy</p>
+<p class="fragment fade-in">Supervision</p>
+<p class="fragment fade-in">Lifecycle</p>
+<p class="fragment fade-in">Routing</p>
 
 # What's Akka
 
@@ -182,6 +189,10 @@ By default, when we instantiated actors with `actorOf`, they
 get a random address chosen by the actor system, but we can customize
 the address by passing a second parameter to `actorOf`.
 
+```scala
+sytem.actorOf(MyActor.props, "path")
+```
+
 
 ## communicating actors
 
@@ -222,6 +233,12 @@ could do it is:
 system.actorSelection("../actor1") ! msg
 ```
 
+
+# Example project
+
+open the `akkaChat` example
+
+
 # exercise 5
 
 - Modify pong actor so it can handle both ping and pong messages.
@@ -251,6 +268,8 @@ We need to keep in mind hierarchy of actors when doing several things:
 
 # Supervision
 
+#
+
 ##
 
 Supervision is a vital part of the actor model.  In the actor model,
@@ -268,17 +287,9 @@ options:
 - **Stop** the subordinate permanently
 - **Escalate** the failure, thereby failing itself
 
-##
+## Example
 
-https://doc.akka.io/docs/akka/current/general/supervision.html#supervision-and-monitoring
-
-# Actor lifecycle
-
-https://doc.akka.io/docs/akka/current/typed/actor-lifecycle.html remember this is akka-typed
-
-# Exercise 3.2
-
-Come up with an exercise that expands on supervision and lifecycle
+see `akkaSupervisionExample`
 
 # Actor routing
 
@@ -290,13 +301,100 @@ Routing is a useful technique in akka.  What you do is send messages
 to a _frontend_ actor (the _router_) that will then send those
 messages to be received by its _routees_.
 
+##
+
+This is useful when we want to have one only actor to communicate to
+but this actor, to alleviate its load, can create a number of other
+actors.
+
+##
+
+Some examples of routing logics one can use are:
+
+- `RoundRobinRoutingLogic`
+- `RandomRoutingLogic`
+- `SmallestMailboxRoutingLogic`
+- `BroadcastRoutingLogic`
+- `ScatterGatherFirstCompletedRoutingLogic`
+- ...
+
 ## Example
 
-https://doc.akka.io/docs/akka/2.5/routing.html
-
+see example `actorRouting`
 
 # Testing
 
+#
 
+##
+
+Testing actors can be done using the `akka-testkit` artifact.  Akka
+testkit provides several features such as:
+
+- test probes: they're actors in which you can check their messages
+  and internal state
+- implicit sender: helps us send messages to our actors from outside
+  an actor.
+  
+##
+
+To create a test class, we extend the `TestKit` class as follows:
+
+```scala
+class MySpec extends TestKit(ActorSytem("my-test")) with WordSpecLike with Matchers with BeforeAndAfterAll {
+
+}
+```
+
+##
+
+In this example we're extending the testkit and also adding a couple
+of mixins:
+
+- WordSpecLike marks our class as a test to scalatest
+- Matchers allows us to do assertions in a more idiomatic way
+- BeforeAndAfterAll allows us to do things on startup of the test and
+  on teardown
+  
+##
+
+The first thing we should do in our akka tests is ensure that the
+ActorSystem is terminated at the end of the test.  Otherwise, the test
+will hang:
+
+```scala
+override def afterAll = {
+  TestKit.shutdownActorSystem(system)
+}
+```
+
+##
+
+After that, we can start by creating the test:
+
+```scala
+"MyActor" should {
+  "handle Hello messages correctly" in {
+  }
+}
+```
+
+##
+
+Finally, we can start testing inside the inner code block, in this
+case, using a `TestProbe()`.  Remember that testprobes allowed us to
+send messages to actors and to inspect received messages:
+
+```scala
+val sender = TestProbe()
+val myActor = system.actorOf(classOf[MyActor])
+sender.send(myActor, MyActor.Hello)
+val state = sender.expectMsg[World.type]
+state shouldBe MyActor.World
+```
+
+## Example
+
+See `akkaTesting` example
 
 [alpakka]: https://developer.lightbend.com/docs/alpakka/current/
