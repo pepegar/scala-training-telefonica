@@ -387,3 +387,8 @@ and `GuiceOneAppPerSuite`.
 ## Example
 
 open the `playTesting` project
+
+## Exercise 3.2
+
+- checkout the `exercise-3.2-description` tag
+- test your CRUD exercise!
