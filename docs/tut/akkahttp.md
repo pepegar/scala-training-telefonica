@@ -18,8 +18,8 @@ minimal example:
 
 # Directives
 
-Directives the building blocks for routing.  We've already seen some
-directives such as `get`, `path` and `complete`.
+Directives are the building blocks for routing.  We've already seen
+some directives such as `get`, `path` and `complete`.
 
 # Exercise 10: create a REST API
 
