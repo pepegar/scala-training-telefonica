@@ -10,21 +10,24 @@ val playDeps = Seq(
 
 val akkaDeps = Seq(
   "com.typesafe.akka" %% "akka-actor" % "2.5.17",
-  "com.typesafe.akka" %% "akka-testkit" % "2.5.17" % Test
+  "com.typesafe.akka" %% "akka-testkit" % "2.5.17" % Test,
+  "org.scalatest" %% "scalatest" % "3.0.5" % Test
 )
 
 val akkaHttpDeps = Seq(
   "com.typesafe.akka" %% "akka-http"   % "10.1.5",
   "com.typesafe.akka" %% "akka-stream" % "2.5.17",
   "com.typesafe.akka" %% "akka-http-spray-json" % "10.1.5",
-  "com.typesafe.akka" %% "akka-http-testkit" % "10.1.5" % Test
+  "com.typesafe.akka" %% "akka-http-testkit" % "10.1.5" % Test,
+  "org.scalatest" %% "scalatest" % "3.0.5" % Test
 )
 
 val akkaStreamsDeps = Seq(
   "com.typesafe.akka" %% "akka-http"   % "10.1.5",
   "com.typesafe.akka" %% "akka-stream" % "2.5.17",
   "com.typesafe.akka" %% "akka-http-spray-json" % "10.1.5",
-  "com.typesafe.akka" %% "akka-http-testkit" % "10.1.5" % Test
+  "com.typesafe.akka" %% "akka-http-testkit" % "10.1.5" % Test,
+  "org.scalatest" %% "scalatest" % "3.0.5" % Test
 )
 /******************************************************************
  *                          EXERCISES                             *
@@ -93,6 +96,11 @@ lazy val akkaRouting = project
 lazy val akkaChat = project
   .in(file("examples/akkaChat"))
   .settings(libraryDependencies ++= akkaDeps)
+
+lazy val akkaTesting = project
+  .in(file("examples/akkaTesting"))
+  .settings(libraryDependencies ++= akkaDeps)
+
 
 lazy val akkaSupervision = project
   .in(file("examples/akkaSupervision"))
