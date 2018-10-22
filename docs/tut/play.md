@@ -22,7 +22,7 @@ As an MVC framework Play uses controllers to handle requests.
 
 ##
 
-In play, your controllers need to extend `AbstractController`
+In play, your controllers need to extend `BaseController`, `AbstractController`
 
 ##
 
@@ -48,7 +48,7 @@ def index() = Action {
 
 ## Example
 
-Tying controllers and Actions together
+Tying controllers and Actions together in the `simple` example.
 
 # Routes
 
@@ -93,6 +93,10 @@ Play represents JSON data as an ADT.
 4. ~null~
 5. an array of JSON values
 6. an object of String to JSON values.
+
+## Question
+
+How would you represent that in Scala?
 
 ##
 
@@ -148,7 +152,8 @@ implicit val readsCar: Reads[Car] = Json.reads[Car]
 
 ## Exercise 2.2
 
-create `Reads` and `Writes` instances for the `Car` case class in the
+- `git checkout exercise-2.2-description`
+- create `Reads` and `Writes` instances for the `Car` case class in the
 `exercise2/model.scala` file.
 
 # Json and HTTP
@@ -204,14 +209,38 @@ def index() = Action(validateAs[Car]) { implicit req =>
 
 # Exercise 3
 
-Create a CRUD application that stores users. A user is composed by an
-ID and a String.
+- checkout the `exercise3-description` tag.
+- Create a CRUD application that stores users. A user is composed by
+  an ID and a name.
 
-checkout the `exercise3-description` tag.
 
 # Persistence
 
+#
+
 ##
+
+Play has adapters for a wide number of SQL systems:
+- MySQL
+- Postgres
+- H2
+- SQLite
+
+## Dependency
+
+To add the dependency to build.sbt you can just do the following:
+
+```
+libraryDependencies += jdbc
+```
+
+And then the specific JDBC driver for your DB vendor:
+
+```
+libraryDependencies += "com.h2database" % "h2" % "1.4.192"
+```
+
+## Configuration
 
 DB configuration in play is controlled in the `application.conf` file.
 An example configuration could be:
@@ -225,11 +254,67 @@ db {
 }
 ```
 
+## Evolutions
+
+Evolutions are the method play provides to evolve the model of your
+application in a sane way.
+
+## Evolutions
+
+Evolutions are `.sql` files stored in the `/conf/evolutions/{dbname}`
+folder, and they must have the following shape:
+
+```sql
+# Users schema
+
+# --- !Ups
+CREATE TABLE user (id bigint(20) NOT NULL AUTO_INCREMENT, fullname varchar(255) NOT NULL, PRIMARY KEY (id));
+
+# --- !Downs
+DROP TABLE user;
+```
+
+## Evolutions
+
+As you can see, in the `.sql` file we have two statements, a `create`
+table and a `drop` table.  That's because we should be able to apply
+and unapply evolutions.
+
+## Using the DB in your code
+
+Since play follows the JSR-330 standard for dependency injection, we
+can `@Inject` our `Database` object wherever we like.  Then, given the
+`Database`, we can create queries and statements from it.
+
+## Testing with databases
+
+When testing our application we can programatically create evolutions
+that put the DB in the state we need.
+
+## Testing with databases
+
+```scala
+Evolutions.withEvolutions(database, SimpleEvolutionsReader.forDefault(
+  Evolution(
+    1,
+    "CREATE TABLE user (id bigint(20) NOT NULL AUTO_INCREMENT, fullname varchar(255) NOT NULL, PRIMARY KEY (id));",
+    "DROP TABLE user;"
+  )
+)
+```
+
+## Testing with databases
+
+That programatic evolution has basically the same effect as the one we
+created in a `.sql` file.
+
 ## example
 
-Using the Database connection
+Using the Database connection.  See the `dbAccess` example.
 
 # HTTP client
+
+#
 
 ##
 
@@ -243,17 +328,62 @@ You create requests by adding the URL they request to:
 val req: WSRequest = WSClient.url("google.com")
 ```
 
+## Creating requests
 
-
-## Http client
+After creating the request we can use its fluid api with all of its
+`.with*` methods to modify the req and make it contain everyting we
+need:
 
 ```scala
 import play.api.libs.ws._
 import play.api.http.HttpEntity
 import scala.concurrent.ExecutionContext
 
-val ws: WSClient = 
+val req = ws.url("asdf")
+      .withMethod("POST")
+      .withBody(Json.toJson("hello dolly"))
 ```
 
+## Creating requests
+
+- `withQueryStringParameters(parameters: (String, String)*)`
+- `withCookies(cookie: WSCookie*)`
+- `withAuth(username: String, password: String, scheme: WSAuthScheme)`
+- `withFollowRedirects(follow: Boolean)`
+- `withRequestTimeout(timeout: Duration)`
+- `withRequestFilter(filter: WSRequestFilter)`
+- `withVirtualHost(vh: String)`
+- `withProxyServer(proxyServer: WSProxyServer)`
+- `withBody[T: BodyWritable](body: T)`
+- `withMethod(method: String)`
 
 # Testing the application
+
+#
+
+## Scalatest + play
+
+Scalatest is the current standard for testing scala code.  They've
+created, together with play framework team, a new package called
+`scalatestplus-play` that helps a lot for testing our play app.
+
+## Adding the dependency
+
+```
+libraryDependencies += 
+  "org.scalatestplus.play" %% "scalatestplus-play" % "x.x.x" % Test
+```
+
+## Creating your test class
+
+To test your play application, make your tests extend `PlaySpec` trait
+and `GuiceOneAppPerSuite`.
+
+- `PlaySpec` removes boilerplate for testing your controllers.
+- `GuiceOneAppPerSuite` makes sure that, for every test file in your
+  application, it starts a new app.  This helps make your tests
+  independent from one another.
+  
+## Example
+
+open the `playTesting` project
