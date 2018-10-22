@@ -357,6 +357,10 @@ val req = ws.url("asdf")
 - `withBody[T: BodyWritable](body: T)`
 - `withMethod(method: String)`
 
+## Example
+
+See the `wsClient` example.
+
 # Testing the application
 
 #
