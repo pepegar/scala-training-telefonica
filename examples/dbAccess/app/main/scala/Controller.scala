@@ -10,7 +10,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 @Singleton
 class Controller @Inject()(db: Database, cc: ControllerComponents) extends AbstractController(cc) {
 
-  def withMyDatabase[T](block: Database => T) = {
+  def withMyDatabase[T](block: Database => T): T = {
 
     Databases.withInMemory(
       urlOptions = Map(
