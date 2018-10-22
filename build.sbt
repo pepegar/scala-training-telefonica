@@ -90,6 +90,10 @@ lazy val akkaRouting = project
   .in(file("examples/akkaRouting"))
   .settings(libraryDependencies ++= akkaDeps)
 
+lazy val akkaSupervision = project
+  .in(file("examples/akkaSupervision"))
+  .settings(libraryDependencies ++= akkaDeps)
+
 lazy val akkaHttpRouting = project
   .in(file("examples/akkaHttpRouting"))
   .settings(libraryDependencies ++= akkaHttpDeps)
