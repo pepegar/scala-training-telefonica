@@ -15,8 +15,9 @@ functional programming.
         - [Akka http](#akka-http)
         - [Akka streams](#akka-streams)
         - [Kafka](#kafka)
-        - [compiling](#compiling)
-    - [building](#building)
+    - [building the slides](#building-the-slides)
+    - [running the examples and exercises](#running-the-examples-and-exercises)
+        - [tags](#tags)
 
 <!-- markdown-toc end -->
 
@@ -106,14 +107,19 @@ $ sbt simple/run
 ```
 
 ### tags
-| exercise     | description              | solution              |
-|:------------:|:------------------------:|:---------------------:|
-| exercise 1.1 | exercise-1.1-description | exercise-1.1-solution |
-| exercise 1.2 | exercise-1.2-description | exercise-1.2-solution |
-| exercise 2.1 | exercise-2.1-description | exercise-2.1-solution |
-| exercise 2.2 | exercise-2.2-description | exercise-2.2-solution |
-| exercise 3   | exercise-3-description   | exercise-3-solution   |
-| exercise 3.2 | exercise-3.2-description | exercise-3.2-solution |
-| exercise 4   | exercise-4-description   | exercise-4-solution   |
-| exercise 5   | exercise-5-description   | exercise-5-solution   |
+
+There are tags for descriptions & solutions of all the exercises.
+Just `git checkout` whichever you want to see it.
+
+| exercise     | description                | solution                |
+|:------------:|:--------------------------:|:-----------------------:|
+| exercise 1.1 | `exercise-1.1-description` | `exercise-1.1-solution` |
+| exercise 1.2 | `exercise-1.2-description` | `exercise-1.2-solution` |
+| exercise 2.1 | `exercise-2.1-description` | `exercise-2.1-solution` |
+| exercise 2.2 | `exercise-2.2-description` | `exercise-2.2-solution` |
+| exercise 3   | `exercise-3-description`   | `exercise-3-solution`   |
+| exercise 3.2 | `exercise-3.2-description` | `exercise-3.2-solution` |
+| exercise 4   | `exercise-4-description`   | `exercise-4-solution`   |
+| exercise 5   | `exercise-5-description`   | `exercise-5-solution`   |
+
 
