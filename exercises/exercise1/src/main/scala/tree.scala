@@ -36,6 +36,11 @@ object Tree {
   /**
     * exercise 1.7 create a function that squares all ints in an int tree
     */
-  def squared = ???
-
+  def squared(tree: Tree[Int]): Tree[Int] = tree match {
+    case Empty() => Empty()
+    case Node(l, x, r) => Node(
+      squared(l),
+      x * x,
+      squared(r))
+  }
 }
