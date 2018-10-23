@@ -33,4 +33,9 @@ object Tree {
     case Node(l, _, r) => 1 + count(l) + count(r)
   }
 
+  /**
+    * exercise 1.7 create a function that squares all ints in an int tree
+    */
+  def squared = ???
+
 }
