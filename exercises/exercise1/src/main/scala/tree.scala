@@ -20,7 +20,8 @@ object Tree {
   /**
     * exercise 1.5 create a function to sum all the leaves in a Tree[Int]
     */
-  def sum() = ???
-
-
+  def sum(tree: Tree[Int]): Int = tree match {
+    case Empty() => 0
+    case Node(l, x, r) => x + sum(l) + sum(r)
+  }
 }
