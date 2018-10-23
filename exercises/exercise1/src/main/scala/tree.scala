@@ -24,4 +24,10 @@ object Tree {
     case Empty() => 0
     case Node(l, x, r) => x + sum(l) + sum(r)
   }
+
+  /**
+    * exercise 1.6 create a function that counts all the leaves in a tree
+    */
+  def leaves() = ???
+
 }
