@@ -56,17 +56,17 @@ lazy val exercise5 = project
 /******************************************************************
  *                          EXAMPLES                              *
  ******************************************************************/
-lazy val simpleExample = project
+lazy val simple = project
   .in(file("examples/simple"))
   .settings(libraryDependencies ++= playDeps)
   .enablePlugins(PlayScala)
 
-lazy val parsingJsonHttpExample = project
+lazy val parsingJsonHttp = project
   .in(file("examples/parsingJsonHttp"))
   .settings(libraryDependencies ++= playDeps)
   .enablePlugins(PlayScala)
 
-lazy val wsClientExample = project
+lazy val wsClient = project
   .in(file("examples/wsClient"))
   .settings(libraryDependencies ++= playDeps)
   .settings(libraryDependencies ++= Seq(
@@ -74,7 +74,7 @@ lazy val wsClientExample = project
   ))
   .enablePlugins(PlayScala)
 
-lazy val dbAccessExample = project
+lazy val dbAccess = project
   .in(file("examples/dbAccess"))
   .settings(libraryDependencies ++= playDeps)
   .settings(libraryDependencies ++= Seq(
@@ -114,9 +114,10 @@ lazy val akkaHttpJson = project
   .in(file("examples/akkaHttpJson"))
   .settings(libraryDependencies ++= akkaHttpDeps)
 
-lazy val akkaStreamsExample = project
+lazy val akkaStreams = project
   .in(file("examples/akkaStreamsExample"))
   .settings(libraryDependencies ++= akkaStreamsDeps)
+
 
 /******************************************************************
  *                            DOCS                                *
