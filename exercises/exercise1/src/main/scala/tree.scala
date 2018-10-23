@@ -17,4 +17,10 @@ object Tree {
     case Node(l, _, r) => 1 + (height(l).max(height(r)))
   }
 
+  /**
+    * exercise 1.5 create a function to sum all the leaves in a Tree[Int]
+    */
+  def sum() = ???
+
+
 }
