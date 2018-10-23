@@ -12,7 +12,11 @@
 In akka-http routes are described using the routing DSL, let's see a
 minimal example:
 
-## akka routing example
++# Example
+
+##
+
+see `akkaHttpRouting` example.
 
 `path`, `get`, `post`, `entity(as[T])` directives.
 
@@ -21,7 +25,9 @@ minimal example:
 Directives are the building blocks for routing.  We've already seen
 some directives such as `get`, `path` and `complete`.
 
-# Exercise 10: create a REST API
+# Exercise 6: create a REST API
+
+`git checkout exercise-6-desciption`
 
 Migrate the REST api we implemented for play in akka-http.
 
@@ -73,6 +79,10 @@ In the previous example, akka knows how to create a jsonFormat for the
 case class because of its arity.  You'll need to use `jsonFormatN`
 combinator where `N` is the arity of your typeclass.
 
+# Example
+
+See `akkaHttpJson` example
+
 # Testing : Route Testkit
 
-# Exercise 11: Testing our API
+# Exercise 7: Testing our API
