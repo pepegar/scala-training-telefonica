@@ -1,4 +1,4 @@
-package exercise5
+package exercise6
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
