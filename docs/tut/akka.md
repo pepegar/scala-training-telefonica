@@ -42,35 +42,24 @@ The actor model is a model for concurrency that treats actors as the
 basic primitive of computation.  Actors is the smallest unit that
 embodies:
 
-<p class="fragment fade-in">processing</p>
-<p class="fragment fade-in">storage</p>
-<p class="fragment fade-in">communication</p>
+<p class="fragment fade-in">**processing**</p>
+<p class="fragment fade-in">**storage**</p>
+<p class="fragment fade-in">**communication**</p>
 
 ##
 
 Actors can do the following:
 
-<p class="fragment fade-in">receive messages</p>
-<p class="fragment fade-in">send messages to other actors</p>
-<p class="fragment fade-in">create other actors</p>
-<p class="fragment fade-in">keep internal state</p>
+<p class="fragment fade-in">**receive messages**</p>
+<p class="fragment fade-in">**send messages to other actors**</p>
+<p class="fragment fade-in">**create other actors**</p>
+<p class="fragment fade-in">**keep internal state**</p>
 
 ##
 
-The way communication between actors happen, under the hood, is that
-actor A sends a message to actor B, and B receives it in its mailbox.
-Mailbox are FIFO queues from which the actor pulls messages when he's
-not doing anything else.
+Actors receive messages in their mailbox.
 
-##
-
-**Actors**:
-
-- Have addresses. (think of them like their URI within the actorsystem)
-- Have mailboxes, in which they receive messages
-- Can hold an internal state
-- Receive messages
-- Can create other actors
+Mailboxes are FIFO queues from which the actor pulls messages.
 
 ## How to create actors
 
@@ -351,9 +340,9 @@ class MySpec extends TestKit(ActorSytem("my-test")) with WordSpecLike with Match
 In this example we're extending the testkit and also adding a couple
 of mixins:
 
-- WordSpecLike marks our class as a test to scalatest
-- Matchers allows us to do assertions in a more idiomatic way
-- BeforeAndAfterAll allows us to do things on startup of the test and
+- `WordSpecLike` marks our class as a test to scalatest
+- `Matchers` allows us to do assertions in a more idiomatic way
+- `BeforeAndAfterAll` allows us to do things on startup of the test and
   on teardown
   
 ##
