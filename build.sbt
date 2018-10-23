@@ -121,6 +121,10 @@ lazy val akkaHttpJson = project
   .in(file("examples/akkaHttpJson"))
   .settings(libraryDependencies ++= akkaHttpDeps)
 
+lazy val akkaHttpTestkit = project
+  .in(file("examples/akkaHttpTestkit"))
+  .settings(libraryDependencies ++= akkaHttpDeps)
+
 lazy val akkaStreams = project
   .in(file("examples/akkaStreamsExample"))
   .settings(libraryDependencies ++= akkaStreamsDeps)
