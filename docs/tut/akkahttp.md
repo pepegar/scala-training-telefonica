@@ -202,3 +202,5 @@ Get() ~> route ~> check {
 See `akkaHttpTestkit` example
 
 # Exercise 8: Testing our API
+
+Create tests for our users api.
