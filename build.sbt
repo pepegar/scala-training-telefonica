@@ -57,12 +57,12 @@ lazy val exercise6 = project
   .in(file("exercises/exercise6"))
   .settings(libraryDependencies ++= akkaHttpDeps)
 
-lazy val exercise7 = project
-  .in(file("exercises/exercise7"))
+lazy val exercise9 = project
+  .in(file("exercises/exercise9"))
   .settings(libraryDependencies ++= akkaHttpDeps)
 
-lazy val exercise8 = project
-  .in(file("exercises/exercise8"))
+lazy val exercise10 = project
+  .in(file("exercises/exercise10"))
   .settings(libraryDependencies ++= akkaHttpDeps)
 /******************************************************************
  *                          EXAMPLES                              *
