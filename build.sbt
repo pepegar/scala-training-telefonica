@@ -108,8 +108,8 @@ lazy val akkaRouting = project
   .in(file("examples/akkaRouting"))
   .settings(libraryDependencies ++= akkaDeps)
 
-lazy val akkaChat = project
-  .in(file("examples/akkaChat"))
+lazy val akkaConfig = project
+  .in(file("examples/akkaConfig"))
   .settings(libraryDependencies ++= akkaDeps)
 
 lazy val akkaTesting = project
