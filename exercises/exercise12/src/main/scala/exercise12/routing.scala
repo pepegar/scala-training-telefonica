@@ -1,4 +1,4 @@
-package exercise10
+package exercise12
 
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import akka.http.scaladsl.server.Directives._
