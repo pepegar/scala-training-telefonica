@@ -3,4 +3,4 @@
 # https://www.playframework.com/documentation/latest/ScalaRouting
 # ~~~~
 
-GET     /                           dbaccess.Controller.index
+GET     /                           playtesting.Controller.index

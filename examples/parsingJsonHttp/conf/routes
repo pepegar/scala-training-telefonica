@@ -3,4 +3,4 @@
 # https://www.playframework.com/documentation/latest/ScalaRouting
 # ~~~~
 
-GET     /                           simple.Controller.index
+GET     /                           parsingJson.Controller.index

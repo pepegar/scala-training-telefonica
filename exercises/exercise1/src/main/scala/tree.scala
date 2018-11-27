@@ -30,7 +30,7 @@ object Tree {
     */
   def leaves[A](tree: Tree[A]): Int = tree match {
     case Empty() => 0
-    case Node(l, _, r) => 1 + count(l) + count(r)
+    case Node(l, _, r) => 1 + leaves(l) + leaves(r)
   }
 
   /**
