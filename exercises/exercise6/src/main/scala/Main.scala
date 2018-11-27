@@ -2,6 +2,7 @@ package exercise6
 
 import akka.actor._
 import akka.pattern.ask
+import akka.pattern.pipe
 import akka.util.Timeout
 import exercise6.Counter.{GetCounter, Increment}
 
@@ -19,20 +20,24 @@ object Main extends App {
     * 
     * Instantiate the actor from the main module, and send a couple of
     * increments, then get the counter.
+    * 
+    * 6.1.  Create a printer actor that accepts a PrintInt method and
+    * prints the integer to the console.
     */
 
   implicit val system = ActorSystem("exercise6")
+  implicit val ec = system.dispatcher
   implicit val timeout: Timeout = Timeout(5.seconds)
 
   val counter = system.actorOf(Counter.props)
+  val printer = system.actorOf(Printer.props)
 
   counter ! Increment
   counter ! Increment
 
   val response: Future[Any] = counter ? GetCounter
 
-  // Don't do this at home, we're blocking the main thread
-  print("the response was " + Await.result(response, Duration.Inf))
+  response.mapTo[Int].map(Printer.PrintInt) pipeTo printer
 
   system.terminate()
 }
