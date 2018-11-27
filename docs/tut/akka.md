@@ -222,17 +222,76 @@ could do it is:
 system.actorSelection("../actor1") ! msg
 ```
 
-
-# Example project
-
-open the `akkaChat` example
-
-
 # exercise 5
 
 - Modify pong actor so it can handle both ping and pong messages.
 - Create two instances of it.
 - make them start pingponging.
+
+
+# Akka patterns
+
+#
+
+## Ask pattern
+
+The ask pattern allows you to wait for the actor's response to a
+message sent to them.  In order to use the ask pattern we need to
+import
+
+```scala
+import akka.pattern.ask
+```
+
+##
+
+The way we use the ask pattern is by using `?` instead of `!`.
+
+```scala
+val response = actorRef ? "message"
+```
+
+# exercise 6
+
+Create a counter actor that accepts two different messages:
+
+- Increment. Increases an internal counter in 1.
+- GetCounter. Sends the current counter back to the sender.
+
+`git checkout exercise-6-description`
+
+#
+
+##
+
+## Pipe pattern
+
+The pipe pattern is used to send the result of a future to an actor
+once the future is resolved.
+
+## What is useful for?
+
+```scala
+db.queryLastTransactions() pipeTo transactionChecker
+```
+
+# exercise 6.1
+
+In the exercise6 project create a new actor called Printer.  This new
+actor should handle a `PrintInt()` message that contains an `Int` and
+on receival, should print it to the console.
+
+Then, in the main method, pipe the result from the counter actor to
+the printer.
+
+`git checkout exercise-6.1-description`
+
+
+# exercise 7
+
+Let's model a chat application in Akka
+
+`git checkout exercise-7-description`
 
 # Actor hierarchy
 
