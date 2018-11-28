@@ -42,13 +42,13 @@ object Main extends App {
   implicit val timeout = Timeout(5 seconds)
   implicit val ec = system.dispatcher
 
-  val bartender = system.actorOf(FromConfig.props(Bartender.props), "bartender")
+  val manager = system.actorOf(BarManager.props, "manager")
 
-  (bartender ? genRequest).map(x => s"the waiter served $x") foreach println
-  (bartender ? genRequest).map(x => s"the waiter served $x") foreach println
-  (bartender ? genRequest).map(x => s"the waiter served $x") foreach println
-  (bartender ? genRequest).map(x => s"the waiter served $x") foreach println
-  (bartender ? DrinkRequest("Ginger ale")).map(x => s"the waiter served $x") foreach println
+  (manager ? genRequest).map(x => s"the waiter served $x") foreach println
+  (manager ? genRequest).map(x => s"the waiter served $x") foreach println
+  (manager ? genRequest).map(x => s"the waiter served $x") foreach println
+  (manager ? genRequest).map(x => s"the waiter served $x") foreach println
+  (manager ? DrinkRequest("Ginger ale")).map(x => s"the waiter served $x") foreach println
 
   Await.result(system.terminate(), Duration.Inf)
 
