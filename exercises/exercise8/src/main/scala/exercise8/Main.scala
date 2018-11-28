@@ -30,6 +30,12 @@ object Main extends App {
     *
     * Modify your Bartender class so it can receive a Tip.
     * Send a tip to all the Bartenders!
+    *
+    * Exercise 8.2:
+    *
+    * Introduce a new actor BarManager that will supervise all Bartenders.  The actor should have a supervision strategy that:
+    * - handles DrinkNotSupportedExceptions by restarting the actor
+    * - escalates all other ones
     */
 
   val system = ActorSystem("exercise8")
@@ -42,8 +48,7 @@ object Main extends App {
   (bartender ? genRequest).map(x => s"the waiter served $x") foreach println
   (bartender ? genRequest).map(x => s"the waiter served $x") foreach println
   (bartender ? genRequest).map(x => s"the waiter served $x") foreach println
-
-  bartender ! Broadcast(Bartender.Tip(5))
+  (bartender ? DrinkRequest("Ginger ale")).map(x => s"the waiter served $x") foreach println
 
   Await.result(system.terminate(), Duration.Inf)
 

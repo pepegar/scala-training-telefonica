@@ -18,12 +18,19 @@ class Bartender extends Actor with ActorLogging {
 
     case DrinkRequest("beer") =>
       sender() ! Beer
+
+    case DrinkRequest(other) =>
+      log.error(s"we are a decent bar, we don't serve $other")
+
+      throw new DrinkNotSupported(other)
   }
 
 }
 
 object Bartender {
   def props: Props = Props(new Bartender)
+
+  class DrinkNotSupported(name: String) extends Exception(s"$name not supported")
 
   case class DrinkRequest(drinkName: String)
   case class Tip(amount: Int)
