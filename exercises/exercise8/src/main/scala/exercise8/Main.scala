@@ -25,6 +25,11 @@ object Main extends App {
     *
     * Modify the application.conf file to make instances of the Bartender actor be routed behind a `round-robin-pool` router
     * with a `nr-of-instances` of your choice
+    *
+    * Exercise 8.1:
+    *
+    * Modify your Bartender class so it can receive a Tip.
+    * Send a tip to all the Bartenders!
     */
 
   val system = ActorSystem("exercise8")
