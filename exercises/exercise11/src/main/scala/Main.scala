@@ -20,21 +20,14 @@ object Main extends App with Model {
     * Create an HTTP endpont for a calculator actor.  The calculator actor should be able to sum, multiply & divide two numbers.
     */
 
-  implicit val system = ActorSystem("exercise-7")
+  implicit val system = ActorSystem("exercise11")
   implicit val materializer = ActorMaterializer()
   implicit val executionContext = system.dispatcher
   implicit val timeout: Timeout = Timeout(5 seconds)
 
   val calculator: ActorRef = system.actorOf(Calculator.props)
 
-  val routes =
-    path("/sum" / IntNumber / IntNumber) { (a, b)  =>
-      complete((calculator ? Sum(a, b)).mapTo[Response])
-    } ~ path("/mult" / IntNumber / IntNumber) { (a, b)  =>
-      complete((calculator ? Mult(a, b)).mapTo[Response])
-    } ~ path("/div" / IntNumber / IntNumber) { (a, b)  =>
-      complete((calculator ? Div(a, b)).mapTo[Response])
-    }
+  val routes = ???
 
   val bindingFuture = Http().bindAndHandle(routes, "localhost", 8080)
 
