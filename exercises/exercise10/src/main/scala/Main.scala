@@ -14,9 +14,39 @@ object Main extends App with Model {
   var users: List[User] = List()
 
   /**
-    * Exercise 10. Create a CRUD service that for users.  Users have an ID and a name
+    * Exercise 6. Create a CRUD service that for users.  Users have an ID and a name
     */
-  val routes = ???
+  val routes =
+    path("/") {
+      get {
+        complete(users)
+      } ~
+      put {
+        entity(as[User]) { user =>
+          users = user :: users
+
+          complete("")
+        }
+      }
+    } ~
+    pathPrefix("/", IntNumber) { Id =>
+      get {
+        complete(users.find(_.id == Id))
+      } ~ post {
+        entity(as[User]) { user =>
+          val IntId = Id.asInstanceOf[Int]
+          users = users map {
+            case User(IntId, _) => user
+            case x => x
+          }
+          complete("")
+        }
+      } ~ delete {
+        users = users.dropWhile(_.id == Id)
+        complete("")
+      }
+    }
+
 
   implicit val system = ActorSystem("exercise10")
   implicit val materializer = ActorMaterializer()
@@ -34,4 +64,6 @@ object Main extends App with Model {
 
 trait Model extends DefaultJsonProtocol with SprayJsonSupport {
 
+  case class User(id: Int, name: String)
+  implicit val userFormat: RootJsonFormat[User] = jsonFormat2(User)
 }
