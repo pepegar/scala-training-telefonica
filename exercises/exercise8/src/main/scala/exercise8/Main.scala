@@ -3,6 +3,7 @@ package exercise8
 import akka.actor._
 import akka.pattern.ask
 import Bartender.DrinkRequest
+import akka.routing.FromConfig
 import akka.util.Timeout
 
 import scala.concurrent.Await
@@ -30,7 +31,7 @@ object Main extends App {
   implicit val timeout = Timeout(5 seconds)
   implicit val ec = system.dispatcher
 
-  val bartender = system.actorOf(Bartender.props, "bartender")
+  val bartender = system.actorOf(FromConfig.props(Bartender.props), "bartender")
 
   (bartender ? genRequest).map(x => s"the waiter served $x") foreach println
   (bartender ? genRequest).map(x => s"the waiter served $x") foreach println
