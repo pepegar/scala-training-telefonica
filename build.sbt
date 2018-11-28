@@ -120,6 +120,10 @@ lazy val akkaConfig = project
   .in(file("examples/akkaConfig"))
   .settings(libraryDependencies ++= akkaDeps)
 
+lazy val akkaResizer = project
+  .in(file("examples/akkaResizer"))
+  .settings(libraryDependencies ++= akkaDeps)
+
 lazy val akkaBroadcast = project
   .in(file("examples/akkaBroadcast"))
   .settings(libraryDependencies ++= akkaDeps)
