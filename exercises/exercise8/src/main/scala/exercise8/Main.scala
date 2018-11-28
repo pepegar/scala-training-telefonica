@@ -3,7 +3,7 @@ package exercise8
 import akka.actor._
 import akka.pattern.ask
 import Bartender.DrinkRequest
-import akka.routing.FromConfig
+import akka.routing.{Broadcast, FromConfig}
 import akka.util.Timeout
 
 import scala.concurrent.Await
@@ -42,6 +42,8 @@ object Main extends App {
   (bartender ? genRequest).map(x => s"the waiter served $x") foreach println
   (bartender ? genRequest).map(x => s"the waiter served $x") foreach println
   (bartender ? genRequest).map(x => s"the waiter served $x") foreach println
+
+  bartender ! Broadcast(Bartender.Tip(5))
 
   Await.result(system.terminate(), Duration.Inf)
 
