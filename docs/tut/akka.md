@@ -366,9 +366,137 @@ Some examples of routing logics one can use are:
 - `ScatterGatherFirstCompletedRoutingLogic`
 - ...
 
+
+# Configuration
+
+##
+
+Akka applications can be tweaked by using Akka's config file.
+
+##
+
+Akka uses their own configuration language called Hocon.
+
+Hocon is a _kind of_ superset of JSON.  If you take a JSON file,
+delete the quotes arond the keys of objects and delete trailing
+commas, you get the Hocon representation.
+
+##
+
+```hocon
+actor {
+  provider = "cluster"
+  default-dispatcher {
+    # Throughput for default Dispatcher, set to 1 for as fair as possible
+    throughput = 10
+  }
+}
+```
+
+##
+
+In the config file we can tweak:
+
+- log level and logger backend
+- enable remoting
+- message serializers
+- definition of routers
+- tuning of dispatchers (execution context)
+- ...
+
+# Example
+
+See `akkaConfiguration` example and compare it with the `akkaRouting`.
+
+#
+
+##
+
+Now that we've seen how to use configuration in akka, let's apply it
+to an exercise.
+
+## Exercise 8
+
+`git checkout exercise-8-description`
+
+##
+
+Other cool thing we can do when routing is using broadcast messages.
+Broadcast messages are special messages that, when sent to a router,
+get sent to all its routees instead of a single one.
+
+##
+
+```scala
+import akka.routing.Broadcast
+
+router ! Broadcast("hello all")
+```
+
 ## Example
 
-see example `actorRouting`
+See `akkaBroadcast` example for an example of Broadcasting
+
+## Exercise 8.1
+
+Modify the exercise 8 so you can give a Tip to all bartenders at the same time
+
+`git checkout exercise-8.1-description`
+
+#
+
+## more supervision
+
+We've seen before that supervision is the process in which actor
+supervisors handle failures from supervised actors.  They do it by
+implementing supervision strategy.
+
+##
+
+```scala
+override val supervisorStrategy = OneForOneStrategy(loggingEnabled = false) {
+  case _: SomeException => Restart
+  case e: SomeOtherException => Stop
+  case e => Escalate
+}
+```
+
+## Strategies
+
+Different strategies apply to who does the strategy applies to.  In
+`OneForOneStrategy`, the actions taken for an exception apply only to
+the actor that raised the exception.
+
+In `AllForOneStrategy`, these actions apply to all supervised actors.
+
+## Exercise 8.2
+
+`git checkout exercise-8.2-description`
+
+# 
+
+## Resizers
+
+Resizers are routers that can grow and shrink depending on the load of
+the routees.  As with other akka features we can use the programmatic
+API or just use the config directly
+
+##
+
+```
+akka.actor.deployment {
+  router = round-robin
+  resizer {
+    lower-bound = 2
+    upper-bound = 15
+  }
+}  
+```
+
+## Example
+
+See `akkaResizer` example
+
 
 # Testing
 
@@ -407,8 +535,8 @@ of mixins:
 ##
 
 The first thing we should do in our akka tests is ensure that the
-ActorSystem is terminated at the end of the test.  Otherwise, the test
-will hang:
+ActorSystem is terminated at the end of the test.  Otherwise, the tests
+may hang:
 
 ```scala
 override def afterAll = {
