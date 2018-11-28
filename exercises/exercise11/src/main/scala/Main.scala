@@ -27,7 +27,14 @@ object Main extends App with Model {
 
   val calculator: ActorRef = system.actorOf(Calculator.props)
 
-  val routes = ???
+  val routes =
+    path("/sum" / IntNumber / IntNumber) { (a, b)  =>
+      complete((calculator ? Sum(a, b)).mapTo[Response])
+    } ~ path("/mult" / IntNumber / IntNumber) { (a, b)  =>
+      complete((calculator ? Mult(a, b)).mapTo[Response])
+    } ~ path("/div" / IntNumber / IntNumber) { (a, b)  =>
+      complete((calculator ? Div(a, b)).mapTo[Response])
+    }
 
   val bindingFuture = Http().bindAndHandle(routes, "localhost", 8080)
 
