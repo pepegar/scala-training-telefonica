@@ -26,3 +26,4 @@ docs/tut-out/*.md
 docs/tut-out/*.html
 
 .idea
+.attach_pid*
