@@ -1,4 +1,4 @@
-package examples
+package exercise7
 
 import scala.collection.mutable
 import akka.actor._

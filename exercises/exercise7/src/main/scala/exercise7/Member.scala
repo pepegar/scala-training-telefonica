@@ -1,4 +1,4 @@
-package examples
+package exercise7
 
 import akka.actor._
 
