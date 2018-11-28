@@ -150,7 +150,7 @@ lazy val akkaHttpTestkit = project
   .settings(libraryDependencies ++= akkaHttpDeps)
 
 lazy val akkaStreams = project
-  .in(file("examples/akkaStreamsExample"))
+  .in(file("examples/akkaStreams"))
   .settings(libraryDependencies ++= akkaStreamsDeps)
 
 
