@@ -65,7 +65,6 @@ lazy val exercise8 = project
   .in(file("exercises/exercise8"))
   .settings(libraryDependencies ++= akkaDeps)
 
-
 lazy val exercise10 = project
   .in(file("exercises/exercise10"))
   .settings(libraryDependencies ++= akkaHttpDeps)
@@ -119,6 +118,10 @@ lazy val akkaRouting = project
 
 lazy val akkaConfig = project
   .in(file("examples/akkaConfig"))
+  .settings(libraryDependencies ++= akkaDeps)
+
+lazy val akkaBroadcast = project
+  .in(file("examples/akkaBroadcast"))
   .settings(libraryDependencies ++= akkaDeps)
 
 lazy val akkaTesting = project
