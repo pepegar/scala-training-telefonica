@@ -26,7 +26,11 @@ object Main extends App {
       |3,Sibyl,Hebbes,shebbes0@yahoo.com,Male,221.222.45.243
       |4,Dasi,Stickley,dstickley4@columbia.edu,Female,125.51.91.181""".stripMargin
 
-  val source: Source[String, NotUsed] = ???
+  val source: Source[String, NotUsed] = Source
+    .single(csv)
+    .map(ByteString.apply)
+    .via(Framing.delimiter(ByteString("\n"), 600))
+    .map(_.utf8String)
 
   sealed trait Gender
   object Gender {
