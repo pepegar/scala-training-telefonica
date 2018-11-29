@@ -5,6 +5,11 @@
 ## Plan for today
 
 - What's akka streams
+- streams basics
+- using the graph dsl
+- using advanced combinators
+- delivering backpressure & buffering
+- integrating with Akka actors
 
 # Building blocks
 
@@ -206,7 +211,7 @@ speed of producers and consumers in different parts of my application.
 
 Imagine we have a fast producer, something like this:
 
-```
+```scala
 Source.repeat(1)
 ```
 
@@ -214,7 +219,7 @@ Source.repeat(1)
 
 And, we have a not-so-fast consumer, something like this:
 
-```
+```scala
 Flow[Int].map { i =>
   Thread.sleep(50)
   i * i
@@ -237,7 +242,35 @@ we'll be able to select the overflow strategy:
 
 see `akkaStreamsBackpressure`
 
+#
 
-# Integrating Akka streams with our akka actors
-# Testing
-# Exercise 15: testing stream applications
+## Integrating Akka streams with our akka actors
+
+##
+
+We can think of the `receive` method of our actor as a kind of
+`Flow[Any, Unit, NotUsed]`.  That can be used together with some async
+combinators in our flow:
+
+##
+
+```scala
+Flow[Int].mapAsync(Parallelism) { i =>
+  (myActor ? i).mapTo[Response]
+}
+```
+
+## Exercise 17
+
+`git checkout exercise-17-description`
+
+## 
+
+If we have time: Testing
+
+# Exercise 18: 
+
+This exercise we'll do together in class
+
+read files from S3, crunch them, and put it in other bucket
+
