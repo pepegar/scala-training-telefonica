@@ -88,6 +88,10 @@ lazy val exercise14 = project
 lazy val exercise15 = project
   .in(file("exercises/exercise15"))
   .settings(libraryDependencies ++= akkaStreamsDeps)
+
+lazy val exercise16 = project
+  .in(file("exercises/exercise16"))
+  .settings(libraryDependencies ++= akkaStreamsDeps)
 /******************************************************************
  *                          EXAMPLES                              *
  ******************************************************************/
