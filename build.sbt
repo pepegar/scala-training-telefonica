@@ -178,6 +178,10 @@ lazy val akkaStreamsCombinators = project
   .in(file("examples/akkaStreamsCombinators"))
   .settings(libraryDependencies ++= akkaStreamsDeps)
 
+lazy val akkaStreamsBackpressure = project
+  .in(file("examples/akkaStreamsBackpressure"))
+  .settings(libraryDependencies ++= akkaStreamsDeps)
+
 /******************************************************************
  *                            DOCS                                *
  ******************************************************************/
