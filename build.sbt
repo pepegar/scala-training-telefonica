@@ -174,6 +174,10 @@ lazy val akkaStreamsErrorHandling = project
   .in(file("examples/akkaStreamsErrorHandling"))
   .settings(libraryDependencies ++= akkaStreamsDeps)
 
+lazy val akkaStreamsCombinators = project
+  .in(file("examples/akkaStreamsCombinators"))
+  .settings(libraryDependencies ++= akkaStreamsDeps)
+
 /******************************************************************
  *                            DOCS                                *
  ******************************************************************/
