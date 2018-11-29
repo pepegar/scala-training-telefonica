@@ -52,7 +52,32 @@ object Main extends App {
 
   case class Row(id: String, name: String, surname: String, email: String, gender: Gender, ip: String)
 
+  val graph = RunnableGraph.fromGraph(GraphDSL.create() {
+    implicit builder: GraphDSL.Builder[NotUsed] =>
+      import GraphDSL.Implicits._
+      val in: Source[String, NotUsed] = Source(csv.split("\n").toList).filter(_.nonEmpty)
+      val parser: Flow[String, Row, NotUsed] = Flow.fromFunction { str =>
+        val List(id, name, surname, email, gender, ip) = str.split(",").toList
 
+        Row(id, name, surname, email, Gender.fromString(gender), ip)
+      }
+      val out = Sink.foreach(println)
+
+      val broadcast = builder.add(Broadcast[Row](3))
+      val merge = builder.add(Merge[Row](3))
+
+      val males = Flow[Row].filter(_.gender == Gender.Male)
+      val females = Flow[Row].filter(_.gender == Gender.Female)
+      val others = Flow[Row].filter(_.gender.isInstanceOf[Gender.Other])
+
+      in ~> parser ~> broadcast ~> males   ~> merge ~> out
+                      broadcast ~> females ~> merge
+                      broadcast ~> others  ~> merge
+
+      ClosedShape
+  })
+
+  graph.run()
 
   sys.terminate()
 }
