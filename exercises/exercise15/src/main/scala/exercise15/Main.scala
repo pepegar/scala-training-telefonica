@@ -1,12 +1,11 @@
 package exercise14
 
 import akka.actor.ActorSystem
-import akka.stream.{ActorMaterializer, ClosedShape}
-import akka.{Done, NotUsed}
-import akka.stream.scaladsl.{Broadcast, Flow, GraphDSL, Merge, RunnableGraph, Sink, Source}
+import akka.stream.scaladsl.{Sink, Source}
+import akka.stream.{ActorAttributes, ActorMaterializer, Supervision}
 
+import scala.concurrent.Await
 import scala.concurrent.duration.Duration
-import scala.concurrent.{Await, Future}
 
 object Main extends App {
 
@@ -21,9 +20,15 @@ object Main extends App {
     *
     */
 
-  val source = Source(0 to 5).map(100 / _)
+  val decider: Supervision.Decider = {
+    case _: ArithmeticException ⇒ Supervision.Resume
+    case _                      ⇒ Supervision.Stop
+  }
+
+  val source = Source(0 to 5).map(100 / _).withAttributes(ActorAttributes.supervisionStrategy(decider))
   val result = source.runWith(Sink.fold(0)(_ + _))
 
-  Await.result(result, Duration.Inf)
+  println(Await.result(result, Duration.Inf))
 
+  sys.terminate()
 }
