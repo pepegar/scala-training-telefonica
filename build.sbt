@@ -170,6 +170,10 @@ lazy val akkaGraphDsl = project
   .in(file("examples/akkaGraphDsl"))
   .settings(libraryDependencies ++= akkaStreamsDeps)
 
+lazy val akkaStreamsErrorHandling = project
+  .in(file("examples/akkaStreamsErrorHandling"))
+  .settings(libraryDependencies ++= akkaStreamsDeps)
+
 /******************************************************************
  *                            DOCS                                *
  ******************************************************************/
