@@ -5,8 +5,6 @@
 ## Plan for today
 
 <p class="fragment fade-in">Introduction to Kafka</p>
-<p class="fragment fade-in">Durability & ordering guarantees</p>
-<p class="fragment fade-in">Serialization/Deserialization</p>
 <p class="fragment fade-in">Producers/Consumers</p>
 <p class="fragment fade-in">`alpakka-kafka`</p>
 <p class="fragment fade-in">Avro</p>
@@ -30,7 +28,7 @@ A whirlwind tour over Kafka main features.
 
 ## Records
 
-Records are also called commits, events, messages, etc.  They are:
+Records are also called commits, events, messages, etc.
 
 - `{key-value-timestamp}`
 - Immutable
@@ -39,7 +37,7 @@ Records are also called commits, events, messages, etc.  They are:
 ## Brokers
 
 - Brokers are nodes in the cluster
-- Producers write records to brokers, consumers pull methods from
+- Producers write records to brokers, consumers pull records from
   brokers
 - Leader/Follower approach for cluster distribution (backed by
   Zookeeper).
@@ -51,6 +49,10 @@ Records are also called commits, events, messages, etc.  They are:
   _purchases_, _audit-log_,...
 - Partitions are replicated
 - Message ordering is only guaranteed at the partition level
+
+## Topics & partitions
+
+<img src="img/topics.jpg" style="height: 400px"/>
 
 ## Offsets
 
@@ -93,4 +95,50 @@ Records are also called commits, events, messages, etc.  They are:
   process msgs several times.
 - **Exactly once**.
 
+# Install confluent platform
 
+##
+
+Goto https://www.confluent.io/download/
+
+# Producers/consumers
+
+##
+
+Kafka has an official java SDK that is possible to use to
+produce/consume data.  We will not get very deep into it though, since
+we want to focus on the alpakka-kafka library more.
+
+##
+
+see `kafkaExample`
+
+#
+
+## alpakka
+
+Alpakka is a set of integrations for akka-streams.  If the service is
+somewhat famous, chances are that it's already in Alpakka.
+
+- S3
+- Dynamo
+- FTP
+- Elasticsearch
+- **Kafka**
+...
+
+## alpakka-kafka
+
+alpakka-kafka is the kafka integration for alpakka.  It maps kafka
+concepts to akka-streams:
+
+- Producer -> Source
+- Stream -> Flow
+- Consumer -> Sink
+
+It overlaps in functionality with kafka streams, it doesn't make much
+sense to use both together.
+
+## Example
+
+see the `alpakkaExample`
