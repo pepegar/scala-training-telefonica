@@ -29,6 +29,10 @@ val akkaStreamsDeps = Seq(
   "com.typesafe.akka" %% "akka-http-testkit" % "10.1.5" % Test,
   "org.scalatest" %% "scalatest" % "3.0.5" % Test
 )
+
+val kafkaDeps = akkaStreamsDeps ++ Seq(
+  "com.typesafe.akka" %% "akka-stream-kafka" % "0.19"
+)
 /******************************************************************
  *                          EXERCISES                             *
  ******************************************************************/
@@ -189,6 +193,10 @@ lazy val akkaStreamsCombinators = project
 lazy val akkaStreamsBackpressure = project
   .in(file("examples/akkaStreamsBackpressure"))
   .settings(libraryDependencies ++= akkaStreamsDeps)
+
+lazy val kafkaExample = project
+  .in(file("examples/kafkaExample"))
+  .settings(libraryDependencies ++= kafkaDeps)
 
 /******************************************************************
  *                            DOCS                                *
