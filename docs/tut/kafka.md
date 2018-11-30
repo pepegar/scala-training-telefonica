@@ -2,13 +2,30 @@
 
 #
 
+
 ## Plan for today
 
+<p class="fragment fade-in">course survey</p>
 <p class="fragment fade-in">*from last session*: integrate actors in akka-streams</p>
 <p class="fragment fade-in">Kafka introduction</p>
 <p class="fragment fade-in">Producers/Consumers</p>
 <p class="fragment fade-in">`alpakka-kafka`</p>
-<p class="fragment fade-in">Kafka patterns</p>
+<p class="fragment fade-in">End of course project</p>
+
+#
+
+## Quick survey
+
+Please follow the link and take the survey, it'll not take more than
+10 minutes!
+
+http://bit.ly/akkahackrs
+
+#
+
+## From last session
+
+[integrate akka actors with akka-streams](file:///home/pepe/projects/47deg/telefonica-training/docs/tut-out/akkastreams.html)
 
 #
 
@@ -101,9 +118,9 @@ Records are also called commits, events, messages, etc.
 
 Goto https://www.confluent.io/download/
 
-# Producers/consumers
+#
 
-##
+## Producers/consumers
 
 Kafka has an official java SDK that is possible to use to
 produce/consume data.  We will not get very deep into it though, since
@@ -151,3 +168,14 @@ see the `alpakkaExample`
 
 `git checkout exercise-19-description`
 
+#
+
+## End of course project :)
+
+Let's tie everything we've learned together and make an event sourced
+scala app backed by akka-streams and Kafka!
+
+**Idea**, bank:
+- Bank account [Create|Close]
+- Deposit
+- Withdrawal
