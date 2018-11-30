@@ -104,6 +104,10 @@ lazy val exercise17 = project
 lazy val exercise18 = project
   .in(file("exercises/exercise18"))
   .settings(libraryDependencies ++= kafkaDeps)
+
+lazy val exercise19 = project
+  .in(file("exercises/exercise19"))
+  .settings(libraryDependencies ++= kafkaDeps)
 /******************************************************************
  *                          EXAMPLES                              *
  ******************************************************************/
