@@ -1,14 +1,96 @@
 # Kafka
 
+#
+
 ## Plan for today
 
+<p class="fragment fade-in">Introduction to Kafka</p>
+<p class="fragment fade-in">Durability & ordering guarantees</p>
+<p class="fragment fade-in">Serialization/Deserialization</p>
+<p class="fragment fade-in">Producers/Consumers</p>
+<p class="fragment fade-in">`alpakka-kafka`</p>
+<p class="fragment fade-in">Avro</p>
+<p class="fragment fade-in">Kafka patterns</p>
 
-https://www.youtube.com/watch?v=gF8v51i6Y1c
-# Producers and Consumers
-# Serializers & Deserializers
+#
 
-# Exercise 16: create a pub sub example
+## What's Kafka
 
-# Kafka streams. KStreams, KTables
-# Exercise 17: create a Kafka Streams application
-# KSQL
+Kafka is a:
+
+<p class="fragment fade-in">Distributed streaming platform</p>
+<p class="fragment fade-in">Stream data platform</p>
+<p class="fragment fade-in">Distributed commit log</p>
+<p class="fragment fade-in">Messaging platform</p>
+<p class="fragment fade-in">Database?</p>
+
+## Kafka basics
+
+A whirlwind tour over Kafka main features.
+
+## Records
+
+Records are also called commits, events, messages, etc.  They are:
+
+- `{key-value-timestamp}`
+- Immutable
+- **Persited to disk**
+
+## Brokers
+
+- Brokers are nodes in the cluster
+- Producers write records to brokers, consumers pull methods from
+  brokers
+- Leader/Follower approach for cluster distribution (backed by
+  Zookeeper).
+  
+## Topics & partitions
+
+- A topic is a logical name for one or more partitions.  Think of
+  topic as the _commit log_ you want to write to, for example
+  _purchases_, _audit-log_,...
+- Partitions are replicated
+- Message ordering is only guaranteed at the partition level
+
+## Offsets
+
+- Offset is the unique sequential id per partition (think
+  auto_increment long id *per partition*).
+- Consumers track offsets
+- Using offsets have some benefits: time traveling, different speed
+  for different consumers...
+  
+## Producer partitioning
+
+- When we send a message from the producer, we do it to a given
+  partition and topic.  Writes go tot the leader of the partition.
+- Partitioning can be done manually or based on the key of the
+  message.
+- Replication factor is topic based
+
+## Consumer groups
+
+- They help scaling-out consumption in Kafka.
+- Message consumption is load-balanced between all consumers in the
+  consumer-group
+
+## Delivery guarantees (Producer side)
+
+- **Async**.  No delivery guarantees. Best performance (_fire and
+  forget_).
+- **Committed to Leader**.  We can choose guarantees of the message
+  being committed to the leader.
+- **Comitted & cluster quorum**. Guarantees leader commit and cluster
+  quorum.
+
+## Delivery guarantees (Consumer side)
+
+- **At least once (default)**. Commit to kafka happens all messages in
+  the block are read.
+- **At most once**. Commits when the consumer receives the
+  block. Won't re-deliver.
+- **Effectively once**. Similar to ALO, but tweaked a bit so we won't
+  process msgs several times.
+- **Exactly once**.
+
+
