@@ -194,6 +194,10 @@ lazy val akkaStreamsBackpressure = project
   .in(file("examples/akkaStreamsBackpressure"))
   .settings(libraryDependencies ++= akkaStreamsDeps)
 
+lazy val alpakkaExample = project
+  .in(file("examples/alpakkaExample"))
+  .settings(libraryDependencies ++= kafkaDeps)
+
 lazy val kafkaExample = project
   .in(file("examples/kafkaExample"))
   .settings(libraryDependencies ++= kafkaDeps)
