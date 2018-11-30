@@ -4,10 +4,10 @@
 
 ## Plan for today
 
-<p class="fragment fade-in">Introduction to Kafka</p>
+<p class="fragment fade-in">*from last session*: integrate actors in akka-streams</p>
+<p class="fragment fade-in">Kafka introduction</p>
 <p class="fragment fade-in">Producers/Consumers</p>
 <p class="fragment fade-in">`alpakka-kafka`</p>
-<p class="fragment fade-in">Avro</p>
 <p class="fragment fade-in">Kafka patterns</p>
 
 #
@@ -142,3 +142,7 @@ sense to use both together.
 ## Example
 
 see the `alpakkaExample`
+
+## Exercise
+
+`git checkout exercise-18-description`
