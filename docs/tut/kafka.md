@@ -146,3 +146,8 @@ see the `alpakkaExample`
 ## Exercise
 
 `git checkout exercise-18-description`
+
+## Exercise
+
+`git checkout exercise-19-description`
+
