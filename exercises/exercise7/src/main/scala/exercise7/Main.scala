@@ -2,9 +2,10 @@ package exercise7
 
 import akka.actor._
 
+import scala.collection.mutable
+
 object Main extends App {
 
-  import Room._
 
   /**
     * Let's model a chat application in Akka.  For this application we
@@ -31,8 +32,16 @@ object Main extends App {
     * To test the application, we can instantiate a room and a couple
     * of users from Main and send a couple of messages too.
     */
-
   val system = ActorSystem("exercise7")
+
+  val room = system.actorOf(RoomActor.props)
+
+  List("pepe", "paco", "antonio", "francisco") foreach { name =>
+    val member = system.actorOf(MemberActor.props(name))
+    room ! RoomActor.AddUser(name, member)
+  }
+
+  room ! RoomActor.SendMessage("pepe", "Hola Colegas!")
 
   system.terminate()
 
