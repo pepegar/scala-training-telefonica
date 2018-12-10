@@ -34,6 +34,7 @@ object Main extends App {
   val csv =
     """1,Nollie,Brothwell,nbrothwell0@independent.co.uk,Female,131.76.114.60
       |2,Kathy,Moores,kmoores1@admin.ch,Female,66.178.121.219
+      |2,Kerry,Monalisa,kmoores1@admin.ch,Potato,66.178.233.219
       |3,Sibyl,Hebbes,shebbes0@yahoo.com,Male,221.222.45.243
       |4,Dasi,Stickley,dstickley4@columbia.edu,Female,125.51.91.181""".stripMargin
 
@@ -52,7 +53,36 @@ object Main extends App {
 
   case class Row(id: String, name: String, surname: String, email: String, gender: Gender, ip: String)
 
+  val graph = RunnableGraph.fromGraph(GraphDSL.create() {
+    implicit builder : GraphDSL.Builder[NotUsed] =>
+      import GraphDSL.Implicits._
+      import Gender._
+      val source: Source[String, NotUsed] = Source(csv.split("\n").toList)
 
+      val parser: Flow[String, Row, NotUsed] = Flow.fromFunction { str =>
+        val List(id, name, surname, email, gender, ip) = str.split(",").toList
 
+        Row(id, name, surname, email, Gender.fromString(gender), ip)
+      }
+
+      val sink: Sink[Row, Future[Done]] = Sink.foreach(println)
+      val broadcast = builder.add(Broadcast[Row](3))
+      val merge = builder.add(Merge[Row](3))
+
+      def genFlow(predicate: Gender => Boolean): Flow[Row, Row, NotUsed] =
+        Flow[Row].filter(row => predicate(row.gender))
+
+      val males = genFlow(_ == Male)
+      val females = genFlow(_ == Female)
+      val others = genFlow(_.isInstanceOf[Other])
+
+      source ~> parser ~> broadcast ~> males   ~> merge ~> sink
+                          broadcast ~> females ~> merge
+                          broadcast ~> others  ~> merge
+
+      ClosedShape
+  })
+
+  graph.run()
   sys.terminate()
 }
